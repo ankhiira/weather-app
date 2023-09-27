@@ -1,24 +1,8 @@
-package sk.solver.weatherapp.models;
+package sk.solver.weatherapp.models
 
-public class Weather {
-    private int id;
-    private String main;
-    private String description;
-    private String icon;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getMain() {
-        return main;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
+class Weather {
+    val id = 0
+    val main: String? = null
+    val description: String? = null
+    val icon: String? = null
 }

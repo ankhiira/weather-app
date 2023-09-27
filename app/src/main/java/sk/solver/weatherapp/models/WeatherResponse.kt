@@ -1,74 +1,17 @@
-package sk.solver.weatherapp.models;
+package sk.solver.weatherapp.models
 
-import java.util.List;
-
-
-public class WeatherResponse {
-
-    private Coord coord;
-    private List<Weather> weather;
-    private String base;
-    private Main main;
-    private int visibility;
-    private Wind wind;
-    private Clouds clouds;
-    private int dt;
-    private Sys sys;
-    private int timezone;
-    private int id;
-    private String name;
-    private int cod;
-
-    public Coord getCoord() {
-        return coord;
-    }
-
-    public List<Weather> getWeather() {
-        return weather;
-    }
-
-    public String getBase() {
-        return base;
-    }
-
-    public Main getMain() {
-        return main;
-    }
-
-    public int getVisibility() {
-        return visibility;
-    }
-
-    public Wind getWind() {
-        return wind;
-    }
-
-    public Clouds getClouds() {
-        return clouds;
-    }
-
-    public int getDt() {
-        return dt;
-    }
-
-    public Sys getSys() {
-        return sys;
-    }
-
-    public int getTimezone() {
-        return timezone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCod() {
-        return cod;
-    }
+class WeatherResponse {
+    val coord: Coord? = null
+    val weather: List<Weather>? = null
+    val base: String? = null
+    val main: Main? = null
+    val visibility = 0
+    val wind: Wind? = null
+    val clouds: Clouds? = null
+    val dt = 0
+    val sys: Sys? = null
+    val timezone = 0
+    val id = 0
+    val name: String? = null
+    val cod = 0
 }
-

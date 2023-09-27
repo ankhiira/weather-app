@@ -1,20 +1,7 @@
-package sk.solver.weatherapp.models;
+package sk.solver.weatherapp.models
 
-public class Wind {
-    private double speed;
-    private int deg;
-    private double gust;
-
-    public double getSpeed() {
-        return speed;
-    }
-
-    public int getDeg() {
-        return deg;
-    }
-
-    public double getGust() {
-        return gust;
-    }
-
+class Wind {
+    val speed = 0.0
+    val deg = 0
+    val gust = 0.0
 }

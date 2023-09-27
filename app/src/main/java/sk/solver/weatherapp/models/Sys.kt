@@ -1,34 +1,10 @@
-package sk.solver.weatherapp.models;
+package sk.solver.weatherapp.models
 
-public class Sys {
-    private int type;
-    private int id;
-    private double message;
-    private String country;
-    private int sunrise;
-    private int sunset;
-
-    public int getType() {
-        return type;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public double getMessage() {
-        return message;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public int getSunrise() {
-        return sunrise;
-    }
-
-    public int getSunset() {
-        return sunset;
-    }
+class Sys {
+    val type = 0
+    val id = 0
+    val message = 0.0
+    val country: String? = null
+    val sunrise = 0
+    val sunset = 0
 }

@@ -1,14 +1,6 @@
-package sk.solver.weatherapp.models;
+package sk.solver.weatherapp.models
 
-public class Coord {
-    private double lon;
-    private double lat;
-
-    public double getLon() {
-        return lon;
-    }
-
-    public double getLat() {
-        return lat;
-    }
+class Coord {
+    val lon = 0.0
+    val lat = 0.0
 }

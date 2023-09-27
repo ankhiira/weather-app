@@ -1,12 +1,16 @@
-package sk.solver.weatherapp;
+package sk.solver.weatherapp
 
-import io.reactivex.rxjava3.core.Observable;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
-import sk.solver.weatherapp.models.WeatherResponse;
+import io.reactivex.rxjava3.core.Observable
+import retrofit2.http.GET
+import retrofit2.http.Query
+import sk.solver.weatherapp.models.WeatherResponse
 
-public interface WeatherClient {
+interface WeatherClient {
 
     @GET("weather")
-    Observable<WeatherResponse> getWeather(@Query("q") String cities, @Query("units") String units, @Query("appid") String appId);
+    fun getWeather(
+        @Query("q") cities: String?,
+        @Query("units") units: String?,
+        @Query("appid") appId: String?
+    ): Observable<WeatherResponse>?
 }

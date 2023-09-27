@@ -1,55 +1,48 @@
-package sk.solver.weatherapp;
+package sk.solver.weatherapp
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonAutoDetect
+import com.fasterxml.jackson.annotation.PropertyAccessor
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.jackson.JacksonConverterFactory
+import java.util.concurrent.TimeUnit
 
-import java.util.concurrent.TimeUnit;
+object WeatherClientBuilder {
+    private const val WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/"
+    const val WEATHER_APP_ID = "f00c38e0279b7bc85480c3fe775d518c"
+    private var instance: Retrofit? = null
 
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
-
-public class WeatherClientBuilder {
-    private static final String WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/";
-    public static final String WEATHER_APP_ID = "f00c38e0279b7bc85480c3fe775d518c";
-
-    private static Retrofit instance;
-
-    public static Retrofit getBuilderInstance() {
-        if (instance != null) {
-            return instance;
-        }
-
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
+    private val builderInstance: Retrofit?
+        get() {
+            if (instance != null) {
+                return instance
+            }
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            val client = OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .callTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
-                .build();
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-
-
-        instance = new Retrofit.Builder()
+                .build()
+            val objectMapper = ObjectMapper()
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+            instance = Retrofit.Builder()
                 .baseUrl(WEATHER_API_URL)
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.io()))
                 .client(client)
-                .build();
+                .build()
+            return instance
+        }
 
-        return instance;
-    }
-
-    public static <T> T create(final Class<T> serviceInterface) {
-        return getBuilderInstance().create(serviceInterface);
+    fun <T> create(serviceInterface: Class<T>?): T {
+        return builderInstance!!.create(serviceInterface)
     }
 }
